@@ -1,0 +1,18 @@
+[Unit]
+Description=docker management dashboard
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=house
+WorkingDirectory=/home/house/docker
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+Environment=PORT=6967
+Environment=HOST=0.0.0.0
+
+[Install]
+WantedBy=multi-user.target

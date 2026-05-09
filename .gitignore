@@ -1,0 +1,75 @@
+# Environment configuration
+.env
+*.env.local
+*.env.*.local
+
+# Node modules
+node_modules
+npm-debug.log
+
+# Svelte build artifacts
+.svelte-kit/
+_build/
+_build2/
+dist/
+*.sqlite
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System
+.DS_Store
+Thumbs.db
+bash_history
+zsh_history
+
+# Logs
+*.log
+logs/
+log/
+
+# Credentials
+*.pem
+*.key
+secrets/
+secrets.json
+secrets.yaml
+
+# Test output
+/coverage
+coverage/
+html/
+coverage.html
+test-results/
+junit.xml
+
+# Package managers
+yarn-error.log
+npm-debug.log
+pnp-debug.log
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# SvelteKit artifacts
+__svelte__
+svelte-kit/
+.svelte-kit/
+
+# Docker
+docker-compose.*.yml
+docker-compose.yml
+*.dockerignore
+
+# Local development
+.lando.yml
+.lando/
+docker/
+docker-build/.env.local

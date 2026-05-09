@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+@theme {
+  --font-sans: 'Varela Round', sans-serif;
+  --font-mono: 'Droid Sans Mono', monospace;
+  --color-background: #050505;
+  --color-surface: #000000;
+  --color-accent-yellow: #f6b012;
+  --color-accent-blue: #3c9fdd;
+  
+  --spacing-4pt: 4px;
+}
+
+@layer base {
+  :root {
+    background-color: var(--color-background);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    min-height: 100dvh;
+    margin: 0;
+    overflow-x: hidden;
+    text-transform: lowercase;
+  }
+
+  /* preserve casing for specific elements */
+  .preserve-case,
+  code,
+  pre,
+  input,
+  textarea {
+    text-transform: none;
+  }
+
+  /* scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent-yellow text-black px-4 py-2 rounded-md font-bold transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-accent-blue text-white px-4 py-2 rounded-md font-bold transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .card {
+    @apply bg-surface/60 backdrop-blur-xl border border-white/5 rounded-2xl p-5 transition-all duration-300 hover:border-white/10 hover:bg-surface/80;
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+  
+  .bento-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5;
+  }
+}
+
+/* Animations */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.fade-exit {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.transition-pkm {
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /* out-cubic */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
