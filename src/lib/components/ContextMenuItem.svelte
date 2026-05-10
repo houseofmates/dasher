@@ -38,5 +38,5 @@
   {#if Icon}
     <Icon size={18} />
   {/if}
-  <span class="context-menu-item" style="text-transform: lowercase !important;">{lowercaseLabel}</span>
+  <span bind:this={spanElement} class="context-menu-item" style="text-transform: lowercase !important;">{lowercaseLabel}</span>
 </button>
