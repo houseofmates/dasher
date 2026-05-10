@@ -110,4 +110,5 @@ the app includes capacitor configuration, allowing it to be packaged as a native
 5. submit a pull request
 
 <h2align="center">license</h2> 
+
 mates license
