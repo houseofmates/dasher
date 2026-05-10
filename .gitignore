@@ -1,77 +1,124 @@
-# Environment configuration
-.env
-*.env.local
-*.env.*.local
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# Node modules
-node_modules
-npm-debug.log
-
-# Svelte build artifacts
-.svelte-kit/
-_build/
-_build2/
+# Build outputs
+build/
 dist/
-*.sqlite
+.svelte-kit/
 
-# OS-specific
-.DS_Store
-Thumbs.db
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Editor/IDE
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+auto-push.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# System
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
-bash_history
-zsh_history
 
-# Logs
-*.log
-logs/
-log/
+# Auto-push service files (keep config but exclude logs)
+auto-push-*.log
+auto-push-*.tmp
 
-# Credentials
-*.pem
-*.key
-*.jks
-*.apk
-secrets/
-secrets.json
-secrets.yaml
+# Android
+android/app/build/
+android/local.properties
+android/gradle/
+android/gradlew
+android/gradlew.bat
+android/.gradle/
+android/captures/
+android/external-file-build/
+android/.externalNativeBuild/
+android/.cxx/
 
-# Test output
-/coverage
-coverage/
-html/
-coverage.html
-test-results/
-junit.xml
-
-# Package managers
-yarn-error.log
-npm-debug.log
-pnp-debug.log
-yarn.lock
-package-lock.json
-pnpm-lock.yaml
-
-# SvelteKit artifacts
-__svelte__
-svelte-kit/
-.svelte-kit/
-
-# Docker
-docker-compose.*.yml
-docker-compose.yml
-*.dockerignore
-
-# Local development
-.lando.yml
-.lando/
-docker/
-docker-build/.env.local
+# Capacitor
+android/app/src/main/assets/public
