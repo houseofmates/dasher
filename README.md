@@ -1,45 +1,137 @@
-<div align="center">
 # docker
 
-Hermes Agent Docker configuration and entrypoint scripts.
-</div>
+a modern web interface for managing docker containers, images, volumes, and networks.
 
-## Overview
+## what this is
 
-This repository contains the Dockerfile (if applicable), entrypoint.sh, and supporting configuration for running Hermes Agent in a containerized environment. The setup is designed to be generic and portable across Linux-based systems, using environment variables for configuration to avoid hardcoding personal or setup-specific values.
+this is a sleek, dark-themed docker management dashboard built with sveltekit. it gives you a clean, intuitive way to interact with your docker environment without touching the command line. think of it as a visual companion to your docker workflow.
 
-## Usage
+## what you can do
 
-1. Copy the `.env.example` to `.env` and fill in the required values.
-2. Build the Docker image (if a Dockerfile is provided) or use the entrypoint script directly with your container runtime.
-3. The container expects a volume mounted at /opt/data for persistent Hermes data (config, skills, memories, etc.).
+- **dashboard** - get a quick overview of your docker ecosystem with real-time stats
+- **containers** - view, start, stop, restart, and manage your containers
+- **images** - browse, pull, and manage docker images
+- **volumes** - manage persistent data storage
+- **networks** - configure and monitor docker networks
+- **compose** - work with docker-compose files visually
+- **terminal** - access container terminals directly from your browser
+- **analytics** - monitor resource usage and performance
 
-## Environment Variables
+## tech stack
 
-Refer to `.env.example` for a list of supported environment variables and their descriptions.
+- **frontend**: sveltekit + svelte 5
+- **styling**: tailwindcss with a dark theme
+- **icons**: phosphor icons
+- **docker integration**: dockerode
+- **terminal**: xterm.js
+- **code editor**: codemirror (for yaml editing)
+- **charts**: uplot for analytics
+- **mobile**: capacitor for native app support
 
-## Entrypoint
+## getting started
 
-The `entrypoint.sh` script handles:
+### prerequisites
 
-- Privilege dropping via `gosu` when running as root.
-- UID/GID mapping for the hermes user to match host ownership.
-- Ownership fixing for the data volume.
-- Creation of essential directory structure.
-- Copying example configuration files if they do not exist.
-- Starting the Hermes dashboard as a background side-process (if enabled).
-- Executing the final command (either `hermes` or a direct executable).
+- node.js 18+ 
+- docker running on your system
+- access to docker socket (`/var/run/docker.sock`)
 
-## Development
+### installation
 
-To contribute:
+```bash
+# clone the repo
+git clone <your-repo-url>
+cd docker
 
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes.
-4. Ensure the entrypoint script remains generic and does not contain hardcoded paths or values specific to your setup.
-5. Submit a pull request.
+# install dependencies
+npm install
 
-## License
+# copy environment variables
+cp .env.example .env
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+# start development server
+npm run dev
+```
+
+### building for production
+
+```bash
+# build the application
+npm run build
+
+# preview the build
+npm run preview
+```
+
+### docker deployment
+
+```bash
+# build the docker image
+docker build -t docker-dashboard .
+
+# run the container
+docker run -d \
+  --name docker-dashboard \
+  -p 5173:5173 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  docker-dashboard
+```
+
+## configuration
+
+the app uses environment variables for configuration. check `.env.example` for available options:
+
+- `docker_sock_path` - path to docker socket (default: `/var/run/docker.sock`)
+- `port` - application port (default: `5173`)
+
+## development
+
+### project structure
+
+```
+src/
+├── lib/
+│   ├── components/     # reusable svelte components
+│   └── server/        # server-side utilities
+├── routes/            # sveltekit pages and api routes
+└── app.html          # main html template
+```
+
+### available scripts
+
+- `npm run dev` - start development server
+- `npm run build` - build for production
+- `npm run preview` - preview production build
+- `npm run check` - type checking
+- `npm run lint` - lint code
+- `npm run format` - format code
+
+## features in detail
+
+### real-time updates
+the app uses websockets to provide real-time updates about container status, logs, and system events.
+
+### terminal access
+integrated terminal lets you access running containers directly from your browser with full terminal emulation.
+
+### compose support
+visual editor for docker-compose files with syntax highlighting and validation.
+
+### mobile app
+the app includes capacitor configuration, allowing it to be packaged as a native mobile app for android and ios.
+
+## contributing
+
+1. fork the repository
+2. create a feature branch
+3. make your changes
+4. ensure the code follows the project style (lowercase, human-friendly)
+5. submit a pull request
+
+## license
+
+this project is licensed under the mit license - see the license file for details.
+
+---
+
+*built with ❤️ for the docker community*
