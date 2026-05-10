@@ -1,6 +1,8 @@
+<div align="center">
 # docker
 
 Hermes Agent Docker configuration and entrypoint scripts.
+</div>
 
 ## Overview
 
@@ -87,7 +89,7 @@ The  script handles:
 │                                      customization-recovery, find-s...       │
 │            ♡ kimi-k2.6 ♡             mcp: fastmcp, mcp-rest-bridge-pattern,  │
 │             /home/house              mcp-stdio-bri...                        │
-│  ♡ session 20260509_181420_f18cf2 ♡  media: audio-router, gif, heartmula,    │
+│  ♡ session 20260509_181559_a0bd77 ♡  media: audio-router, gif, heartmula,    │
 │                                      image-loader, img...                    │
 │                                      memster: llm-wiki,                      │
 │                                      memster-activity-system,                │
@@ -103,8 +105,8 @@ The  script handles:
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 haii :3
-✦ tip: Cron jobs run in completely fresh agent sessions — prompts must be 
-self-contained.
+✦ tip: Type a new message while the agent is working to interrupt and redirect 
+it.
 
 
 byee :3 or a direct executable).
