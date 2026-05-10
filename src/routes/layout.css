@@ -37,7 +37,10 @@
   }
 
   /* ensure context menu items are always lowercase */
-  .context-menu-item {
+  .context-menu-item,
+  .context-menu-item *,
+  [class*="context-menu"] span,
+  [class*="context-menu"] button span {
     text-transform: lowercase !important;
   }
 

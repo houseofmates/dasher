@@ -11,6 +11,9 @@
   }
 
   let { label, icon: Icon, onclick, variant = 'default', disabled = false }: Props = $props();
+  
+  // Force label to lowercase
+  $: lowercaseLabel = label.toLowerCase();
 </script>
 
 <button
@@ -25,5 +28,5 @@
   {#if Icon}
     <Icon size={18} />
   {/if}
-  <span class="context-menu-item" style="text-transform: lowercase !important;">{label.toLowerCase()}</span>
+  <span class="context-menu-item" style="text-transform: lowercase !important;">{lowercaseLabel}</span>
 </button>
