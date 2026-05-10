@@ -21,7 +21,7 @@
       title: "",
       width: chartElement.clientWidth,
       height: 400,
-      cursor: { show: true },
+      cursor: { show: true, x: false, y: false },
       scales: {
         x: { time: true },
         y: { range: [0, null] }
@@ -105,12 +105,12 @@
       <div class="card space-y-4 group hover:border-accent-yellow/20 transition-all">
         <div class="flex items-center justify-between">
           <h3 class="font-bold truncate preserve-case">{container.name}</h3>
-          <span class="text-[10px] font-mono text-white/20 uppercase tracking-tighter">{container.id.slice(0, 12)}</span>
+          <span class="text-[10px] font-mono text-white/20 tracking-tighter">{container.id.slice(0, 12)}</span>
         </div>
         
         <div class="space-y-3">
           <div class="space-y-1">
-            <div class="flex justify-between text-[10px] uppercase font-bold tracking-widest text-white/40">
+            <div class="flex justify-between text-[10px] font-bold tracking-widest text-white/40">
               <span>cpu usage</span>
               <span class="text-accent-yellow">{cpu.toFixed(1)}%</span>
             </div>
@@ -120,7 +120,7 @@
           </div>
 
           <div class="space-y-1">
-            <div class="flex justify-between text-[10px] uppercase font-bold tracking-widest text-white/40">
+            <div class="flex justify-between text-[10px] font-bold tracking-widest text-white/40">
               <span>memory</span>
               <span class="text-accent-blue">{mem.toFixed(1)}% ({memMb.toFixed(1)} mb)</span>
             </div>
@@ -135,14 +135,14 @@
 
   <div class="card p-0 overflow-hidden">
     <div class="p-4 border-b border-white/5 flex justify-between items-center">
-      <p class="text-xs font-bold text-white/40 uppercase tracking-widest">system traffic (cloudflared)</p>
+      <p class="text-xs font-bold text-white/40 tracking-widest">system traffic (cloudflared)</p>
     </div>
     <div bind:this={chartElement} class="w-full h-[400px]"></div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <div class="card space-y-4">
-      <p class="text-xs font-bold text-white/40 uppercase tracking-widest">top paths</p>
+      <p class="text-xs font-bold text-white/40 tracking-widest">top paths</p>
       <div class="space-y-2">
         {#each data.analytics.topPaths as path}
           <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5">
@@ -154,7 +154,7 @@
     </div>
 
     <div class="card space-y-4">
-      <p class="text-xs font-bold text-white/40 uppercase tracking-widest">summary</p>
+      <p class="text-xs font-bold text-white/40 tracking-widest">summary</p>
       <div class="grid grid-cols-2 gap-4">
         <div class="p-4 bg-white/5 rounded-lg border border-white/5">
           <p class="text-xs text-white/40 mb-1">total requests</p>

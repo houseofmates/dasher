@@ -63,8 +63,8 @@
             <ShareNetwork size={24} />
           </div>
           <div>
-            <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest">driver</p>
-            <p class="font-mono text-sm uppercase">{network.Driver}</p>
+            <p class="text-[10px] text-white/20 font-bold tracking-widest">driver</p>
+            <p class="font-mono text-sm">{network.Driver}</p>
           </div>
         </div>
 
@@ -73,8 +73,8 @@
             <Globe size={24} />
           </div>
           <div>
-            <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest">scope</p>
-            <p class="font-mono text-sm uppercase">{network.Scope}</p>
+            <p class="text-[10px] text-white/20 font-bold tracking-widest">scope</p>
+            <p class="font-mono text-sm">{network.Scope}</p>
           </div>
         </div>
 
@@ -83,23 +83,23 @@
             <ShieldCheck size={24} />
           </div>
           <div>
-            <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest">internal</p>
+            <p class="text-[10px] text-white/20 font-bold tracking-widest">internal</p>
             <p class="font-mono text-sm">{network.Internal ? 'yes' : 'no'}</p>
           </div>
         </div>
       </div>
 
       <div class="card space-y-4">
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest">ipam config</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest">ipam config</p>
         {#if network.IPAM?.Config?.length > 0}
           {#each network.IPAM.Config as config}
             <div class="space-y-2 p-3 bg-white/5 rounded-lg border border-white/5">
               <div class="flex justify-between">
-                <span class="text-[10px] text-white/40 uppercase">subnet</span>
+                <span class="text-[10px] text-white/40">subnet</span>
                 <span class="text-xs font-mono">{config.Subnet}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-[10px] text-white/40 uppercase">gateway</span>
+                <span class="text-[10px] text-white/40">gateway</span>
                 <span class="text-xs font-mono">{config.Gateway}</span>
               </div>
             </div>
@@ -113,7 +113,7 @@
     <!-- Connected Containers -->
     <div class="lg:col-span-2 space-y-6">
       <div class="card flex-1 flex flex-col gap-4">
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest">connected containers</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest">connected containers</p>
         
         {#if Object.keys(network.Containers || {}).length > 0}
           <div class="grid grid-cols-1 gap-3">
@@ -143,11 +143,11 @@
       </div>
 
       <div class="card">
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">options</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest mb-4">options</p>
         <div class="grid grid-cols-2 gap-4">
           {#each Object.entries(network.Options || {}) as [key, val]}
             <div class="p-3 bg-black/20 rounded-lg border border-white/5">
-              <p class="text-[9px] text-white/20 uppercase font-bold tracking-widest mb-1">{key}</p>
+              <p class="text-[9px] text-white/20 font-bold tracking-widest mb-1">{key}</p>
               <p class="text-xs font-mono text-white/60 truncate">{val}</p>
             </div>
           {:else}

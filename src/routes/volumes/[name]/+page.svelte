@@ -63,7 +63,7 @@
             <HardDrive size={24} />
           </div>
           <div>
-            <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest">driver</p>
+            <p class="text-[10px] text-white/20 font-bold tracking-widest">driver</p>
             <p class="font-mono text-sm">{volume.Driver}</p>
           </div>
         </div>
@@ -73,7 +73,7 @@
             <Calendar size={24} />
           </div>
           <div>
-            <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest">created</p>
+            <p class="text-[10px] text-white/20 font-bold tracking-widest">created</p>
             <p class="font-mono text-sm">{volume.CreatedAt ? formatDate(volume.CreatedAt) : 'n/a'}</p>
           </div>
         </div>
@@ -83,14 +83,14 @@
             <Database size={24} />
           </div>
           <div>
-            <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest">scope</p>
-            <p class="font-mono text-sm uppercase">{volume.Scope}</p>
+            <p class="text-[10px] text-white/20 font-bold tracking-widest">scope</p>
+            <p class="font-mono text-sm">{volume.Scope}</p>
           </div>
         </div>
       </div>
 
       <div class="card space-y-4">
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest">mountpoint</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest">mountpoint</p>
         <div class="bg-black/20 p-4 rounded-xl border border-white/5 font-mono text-xs break-all leading-relaxed">
           {volume.Mountpoint}
         </div>
@@ -101,7 +101,7 @@
     <div class="lg:col-span-2 space-y-6">
       <div class="card h-full flex flex-col gap-4 min-h-[400px]">
         <div class="flex items-center justify-between">
-          <p class="text-xs font-bold text-white/40 uppercase tracking-widest">labels & options</p>
+          <p class="text-xs font-bold text-white/40 tracking-widest">labels & options</p>
         </div>
 
         {#if Object.keys(volume.Labels || {}).length > 0}
@@ -120,7 +120,7 @@
         {/if}
 
         <div class="mt-auto pt-6 border-t border-white/5">
-          <p class="text-[10px] text-white/20 uppercase font-bold tracking-widest mb-4">raw configuration</p>
+          <p class="text-[10px] text-white/20 font-bold tracking-widest mb-4">raw configuration</p>
           <div class="bg-black/40 p-4 rounded-xl font-mono text-[10px] text-white/60 overflow-x-auto whitespace-pre">
             {JSON.stringify(volume, null, 2)}
           </div>

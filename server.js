@@ -5,6 +5,7 @@ import Docker from 'dockerode';
 import dotenv from 'dotenv';
 
 dotenv.config();
+dotenv.config({ path: '.env.local' });
 
 const server = http.createServer(handler);
 const wss = new WebSocketServer({ noServer: true });

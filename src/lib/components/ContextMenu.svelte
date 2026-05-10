@@ -11,7 +11,12 @@
   }
 
   let { x, y, show, onClose, children }: Props = $props();
-  let menuElement: HTMLDivElement;
+  let menuElement = $state<HTMLDivElement>();
+  let manualX = $state<number | null>(null);
+  let manualY = $state<number | null>(null);
+
+  let adjustedX = $derived(manualX ?? x);
+  let adjustedY = $derived(manualY ?? y);
 
   $effect(() => {
     if (show && menuElement) {
@@ -19,11 +24,19 @@
       const padding = 10;
       
       if (x + rect.width > window.innerWidth) {
-        x = window.innerWidth - rect.width - padding;
+        manualX = window.innerWidth - rect.width - padding;
+      } else {
+        manualX = null;
       }
+
       if (y + rect.height > window.innerHeight) {
-        y = window.innerHeight - rect.height - padding;
+        manualY = window.innerHeight - rect.height - padding;
+      } else {
+        manualY = null;
       }
+    } else {
+      manualX = null;
+      manualY = null;
     }
   });
 
@@ -51,7 +64,7 @@
   <div 
     bind:this={menuElement}
     class="fixed z-[100] min-w-[160px] bg-surface/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden py-1.5"
-    style="left: {x}px; top: {y}px;"
+    style="left: {adjustedX}px; top: {adjustedY}px;"
     in:scale={{ duration: 150, start: 0.95 }}
     out:fade={{ duration: 100 }}
   >

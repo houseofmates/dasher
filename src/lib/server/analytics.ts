@@ -1,8 +1,18 @@
 import fs from 'fs/promises';
-import { env } from '$env/dynamic/private';
+
+const mockAnalytics = {
+  time: Array.from({length: 24}, (_, i) => Date.now() - (23-i) * 3600000),
+  requests: Array.from({length: 24}, () => Math.floor(Math.random() * 100)),
+  bandwidth: Array.from({length: 24}, () => Math.floor(Math.random() * 5000)),
+  topPaths: [
+    { path: '/containers', count: 120 },
+    { path: '/api/logs', count: 85 },
+    { path: '/compose', count: 42 }
+  ]
+};
 
 export async function getTunnelAnalytics(range: string) {
-  const logPath = env.CLOUDFLARE_ACCESS_LOG_PATH || '/var/log/cloudflared/access.log';
+  const logPath = process.env.CLOUDFLARE_ACCESS_LOG_PATH || '/var/log/cloudflared/access.log';
   
   try {
     const content = await fs.readFile(logPath, 'utf-8');
@@ -33,16 +43,7 @@ export async function getTunnelAnalytics(range: string) {
     };
   } catch (e) {
     console.error('failed to read cloudflared logs:', e);
-    // return mock data for initial UI dev
-    return {
-      time: Array.from({length: 24}, (_, i) => Date.now() - (23-i) * 3600000),
-      requests: Array.from({length: 24}, () => Math.floor(Math.random() * 100)),
-      bandwidth: Array.from({length: 24}, () => Math.floor(Math.random() * 5000)),
-      topPaths: [
-        { path: '/containers', count: 120 },
-        { path: '/api/logs', count: 85 },
-        { path: '/compose', count: 42 }
-      ]
-    };
+    // return persistent mock data for initial UI dev
+    return mockAnalytics;
   }
 }

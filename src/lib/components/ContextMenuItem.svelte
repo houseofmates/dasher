@@ -25,5 +25,5 @@
   {#if Icon}
     <Icon size={18} />
   {/if}
-  <span class="capitalize">{label}</span>
+  <span class="context-menu-item" style="text-transform: lowercase !important;">{label.toLowerCase()}</span>
 </button>

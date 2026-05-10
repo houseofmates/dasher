@@ -60,19 +60,19 @@
           <h3 class="text-xl font-bold">configuration</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="space-y-1">
-              <p class="text-[10px] text-white/40 uppercase tracking-widest font-bold">architecture</p>
+              <p class="text-[10px] text-white/40 tracking-widest font-bold">architecture</p>
               <p class="font-mono text-sm">{image.Architecture}</p>
             </div>
             <div class="space-y-1">
-              <p class="text-[10px] text-white/40 uppercase tracking-widest font-bold">os</p>
+              <p class="text-[10px] text-white/40 tracking-widest font-bold">os</p>
               <p class="font-mono text-sm">{image.Os}</p>
             </div>
             <div class="space-y-1">
-              <p class="text-[10px] text-white/40 uppercase tracking-widest font-bold">docker version</p>
+              <p class="text-[10px] text-white/40 tracking-widest font-bold">docker version</p>
               <p class="font-mono text-sm">{image.DockerVersion}</p>
             </div>
             <div class="space-y-1">
-              <p class="text-[10px] text-white/40 uppercase tracking-widest font-bold">author</p>
+              <p class="text-[10px] text-white/40 tracking-widest font-bold">author</p>
               <p class="font-mono text-sm truncate">{image.Author || 'N/A'}</p>
             </div>
           </div>
@@ -96,19 +96,19 @@
         <div class="card space-y-4">
           <div class="flex items-center gap-3 text-accent-yellow">
             <Info size={20} />
-            <span class="font-bold uppercase text-xs tracking-widest">quick info</span>
+            <span class="font-bold text-xs tracking-widest">quick info</span>
           </div>
           <div class="space-y-4 pt-2">
             <div class="flex justify-between items-center">
-              <span class="text-white/40 text-sm">Size</span>
+              <span class="text-white/40 text-sm">size</span>
               <span class="font-mono">{formatSize(image.Size)}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-white/40 text-sm">Created</span>
+              <span class="text-white/40 text-sm">created</span>
               <span class="font-mono">{new Date(image.Created).toLocaleDateString()}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-white/40 text-sm">Layers</span>
+              <span class="text-white/40 text-sm">layers</span>
               <span class="font-mono">{image.RootFS?.Layers?.length || 0}</span>
             </div>
           </div>
@@ -118,7 +118,7 @@
           <div class="card space-y-4">
             <div class="flex items-center gap-3 text-accent-blue">
               <Tag size={20} />
-              <span class="font-bold uppercase text-xs tracking-widest">exposed ports</span>
+              <span class="font-bold text-xs tracking-widest">exposed ports</span>
             </div>
             <div class="flex flex-wrap gap-2 pt-2">
               {#each Object.keys(image.Config.ExposedPorts) as port}

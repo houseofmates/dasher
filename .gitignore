@@ -38,6 +38,8 @@ log/
 # Credentials
 *.pem
 *.key
+*.jks
+*.apk
 secrets/
 secrets.json
 secrets.yaml

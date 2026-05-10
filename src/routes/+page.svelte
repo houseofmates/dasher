@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Cube, Images, HardDrives, Globe, Pulse } from 'phosphor-svelte';
   import { clsx } from 'clsx';
+  import RecentActivity from '$lib/components/RecentActivity.svelte';
 
   let { data } = $props();
 </script>
@@ -24,7 +25,7 @@
       </div>
       <div class="mt-4">
         <h3 class="text-3xl font-bold">{data.stats.containers.total}</h3>
-        <p class="text-xs text-white/40 uppercase tracking-widest font-bold mt-1">containers</p>
+        <p class="text-xs text-white/40 tracking-widest font-bold mt-1">containers</p>
       </div>
     </a>
 
@@ -37,12 +38,12 @@
       </div>
       <div class="mt-4">
         <h3 class="text-3xl font-bold">{data.stats.images}</h3>
-        <p class="text-xs text-white/40 uppercase tracking-widest font-bold mt-1">images</p>
+        <p class="text-xs text-white/40 tracking-widest font-bold mt-1">images</p>
       </div>
     </a>
 
     <!-- Volumes Card -->
-    <div class="card group">
+    <a href="/volumes" class="card group hover:border-purple-500/50 transition-all">
       <div class="flex items-start justify-between">
         <div class="p-3 bg-purple-500/10 rounded-xl text-purple-500">
           <HardDrives size={24} weight="duotone" />
@@ -50,12 +51,12 @@
       </div>
       <div class="mt-4">
         <h3 class="text-3xl font-bold">{data.stats.volumes}</h3>
-        <p class="text-xs text-white/40 uppercase tracking-widest font-bold mt-1">volumes</p>
+        <p class="text-xs text-white/40 tracking-widest font-bold mt-1">volumes</p>
       </div>
-    </div>
+    </a>
 
     <!-- Networks Card -->
-    <div class="card group">
+    <a href="/networks" class="card group hover:border-orange-500/50 transition-all">
       <div class="flex items-start justify-between">
         <div class="p-3 bg-orange-500/10 rounded-xl text-orange-500">
           <Globe size={24} weight="duotone" />
@@ -63,22 +64,15 @@
       </div>
       <div class="mt-4">
         <h3 class="text-3xl font-bold">{data.stats.networks}</h3>
-        <p class="text-xs text-white/40 uppercase tracking-widest font-bold mt-1">networks</p>
+        <p class="text-xs text-white/40 tracking-widest font-bold mt-1">networks</p>
       </div>
-    </div>
+    </a>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <!-- Quick Actions/Links -->
-    <div class="lg:col-span-2 space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold">recent activity</h3>
-        <button class="text-xs text-white/40 hover:text-white transition-colors">view all</button>
-      </div>
-      <div class="card space-y-4 min-h-[300px] flex flex-col items-center justify-center text-white/20 italic">
-        <Pulse size={48} weight="thin" class="mb-4 opacity-20" />
-        no recent events recorded
-      </div>
+    <div class="lg:col-span-2">
+      <RecentActivity />
     </div>
 
     <div class="space-y-4">
@@ -105,7 +99,7 @@
         </div>
 
         <div class="pt-4 border-t border-white/5">
-          <p class="text-[10px] text-white/20 uppercase font-bold tracking-tighter">node version</p>
+          <p class="text-[10px] text-white/20 font-bold tracking-tighter">node version</p>
           <p class="text-xs font-mono text-white/40">v22.x (stable)</p>
         </div>
       </div>

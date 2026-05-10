@@ -2,15 +2,21 @@ import { env } from '$env/dynamic/private';
 
 let keyIndex = 0;
 
-function getNextApiKey() {
+export function getNextApiKey() {
   const keys = Object.entries(env)
     .filter(([key]) => key.startsWith('NVIDIA_API_KEY_'))
-    .map(([_, value]) => value);
+    .sort(([a], [b]) => {
+      const numA = parseInt(a.replace('NVIDIA_API_KEY_', ''), 10);
+      const numB = parseInt(b.replace('NVIDIA_API_KEY_', ''), 10);
+      return numA - numB;
+    })
+    .map(([_, value]) => value as string)
+    .filter(Boolean);
   
   if (keys.length === 0) return null;
   
   const key = keys[keyIndex % keys.length];
-  keyIndex++;
+  keyIndex = (keyIndex + 1) % keys.length;
   return key;
 }
 

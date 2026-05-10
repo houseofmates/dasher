@@ -1,132 +1,109 @@
-# Docker Management Dashboard
+# docker management dashboard
 
-A modern web-based dashboard for managing Docker containers, stacks, and networks with a clean SvelteKit interface.
+hey! so this is a web-based dashboard i've been working on to manage docker containers, stacks, and networks. it's built with sveltekit and has a pretty clean interface for keeping track of all your docker stuff.
 
-![Dashboard Preview](https://via.placeholder.com/600x300?text=Dashboard+Preview)
+## what can it do?
 
-## Features
+- **see all your containers** - start, stop, restart, view logs
+- **find docker-compose stacks** - automatically discovers stacks in your system
+- **web-based terminal** - access container shells through your browser
+- **network management** - view and manage docker networks
+- **analytics** - basic monitoring of container resource usage
 
-- **Container Management**: View, start, stop, and restart containers
-- **Stack Discovery**: Automatically find docker-compose stacks in your system
-- **Terminal Access**: Web-based terminal for container shell access
-- **Network Management**: View and manage Docker networks
-- **System Analytics**: Monitor container resource usage
-- **WebSocket Terminal**: Persistent terminal sessions via WebSocket
+## screenshots (just imagine them)
 
-## Screenshots
+you know the drill - containers view, terminal view, all that good stuff. it's pretty neat.
 
-![Containers View](https://via.placeholder.com/600x400?text=Containers+View)
-![Terminal View](https://via.placeholder.com/600x400?text=Terminal+View)
+## installation
 
-## Installation
+### what you'll need
 
-### Prerequisites
+- node.js 18+ (check the `.nvmrc` for the version i use)
+- docker running somewhere
+- npm or yarn
 
-- Node.js 18+ (or use Node.js version from `.nvmrc`)
-- Docker daemon running
-- For development: SvelteKit CLI
-
-### Quick Start
+### quick start
 
 ```bash
-# Clone the repository
+# clone it down
 git clone https://github.com/yourusername/docker.git
 cd docker
 
-# Install dependencies
+# install dependencies
 npm install
 
-# Create environment file
+# copy the example env file
 cp .env.example .env.local
-# Edit .env.local to match your system configuration
 
-# Development server
+# edit it to match your setup (paths to docker socket, compose files, etc.)
+nvim .env.local
+
+# run the dev server
 npm run dev
-
-# Production build
-npm run build
-npm run preview
 ```
 
-## Environment Variables
+it'll be running at whatever port you set in your `.env.local` (default is 6967).
 
-Create a `.env.local` file in the project root with your configuration:
+## environment variables
+
+here's what you can configure:
 
 ```env
-# Docker socket path (default: /var/run/docker.sock)
+# docker socket path - default is /var/run/docker.sock
 DOCKER_SOCK_PATH=/var/run/docker.sock
 
-# Main Docker compose stack path (optional)
-MAIN_STACK_PATH=/path/to/your/main/docker-compose.yml
+# main docker-compose stack - where your main compose file lives
+MAIN_STACK_PATH=
 
-# Cloudflare Tunnel configuration
+# cloudflare tunnel stuff - if you're using cloudflare
 CLOUDFLARE_CONFIG_PATH=/etc/cloudflared/config.yml
 CLOUDFLARE_ACCESS_LOG_PATH=/var/log/cloudflared/access.log
 
-# Application settings
+# app settings
 PORT=6967
 HOST=0.0.0.0
 
-# NVIDIA API keys for YAML fixes (optional)
+# nvidia api keys (for fixing yaml) - get these from nvidia developer portal
 # NVIDIA_API_KEY_1=
 # NVIDIA_API_KEY_2=
 # ...
 ```
 
-## Development
+just put these in your `.env.local` file. the `.env.example` has placeholders.
 
-### Prerequisites
+## project structure
 
-- Node.js 18.x or later
-- Docker
-- npm or yarn
+- `src/routes/` - all the pages (containers, images, networks, terminal, etc.)
+- `src/lib/server/` - backend utils, docker stuff, compose handling
+- `src/lib/` - shared components and utils
+- `static/` - static assets
 
-### Getting Started
+it's a pretty standard sveltekit project.
 
-1. Clone the repository
-2. Install dependencies: `npm install` or `yarn install`
-3. Copy environment example: `cp .env.example .env.local`
-4. Configure your paths in `.env.local`
-5. Start the development server: `npm run dev`
+## development
 
-The application will be available at `http://localhost:5173` (or the port specified in your `.env.local`).
-
-### Project Structure
-
-```
-src/
-├── lib/
-│   ├── server/     # Server-side utilities
-│   ├── toasts.ts   # Notification system
-│   └── snippets.ts # Reusable code snippets
-├── routes/         # SvelteKit routes
-│   ├── containers/
-│   ├── images/
-│   ├── networks/
-│   ├── terminal/
-│   └── api/
-└── lib/           # Shared components
-```
-
-## Building for Production
+i use nvm to manage node versions - check `.nvmrc` for the version i'm on. other than that, just:
 
 ```bash
-# Create production build
-npm run build
-
-# Preview the build
-npm run preview
-
-# Start production server
-npm run start
+npm install
+npm run dev
 ```
 
-## Docker Deployment
+hot reloading works great for svelte stuff.
 
-The application can be containerized using Docker:
+## building for production
+
+```bash
+npm run build
+npm run preview  # check it out locally
+npm run start    # actually start the production server
+```
+
+## docker deployment
+
+yeah, you can dockerize this too. here's a sample dockerfile:
 
 ```dockerfile
-# Dockerfile (example)
 FROM node:18-alpine as builder
 WORKDIR /app
 COPY package*.json ./
@@ -146,65 +123,25 @@ EXPOSE 6967
 CMD npm run start
 ```
 
-## API Usage
+## contributing
 
-The dashboard provides a WebSocket API for terminal access and HTTP API for container management.
+feel like helping out? cool.
 
-### WebSocket Terminal
+1. fork the repo
+2. make a branch
+3. do your thing
+4. open a pr
 
-Connect to `/terminal?id=CONTAINER_ID` for WebSocket terminal access.
+just keep the code style consistent and write tests if you're adding features.
 
-### REST API
+## license
 
-The application uses standard SvelteKit load functions and endpoints.
+mit. do what you want with it.
 
-## Testing
+## support
 
-```bash
-# Run tests
-npm test
+open an issue on github if you run into problems. i'll try to help out when i can.
 
-# Run with coverage
-npm run test:coverage
-```
+## disclaimer
 
-## Security Considerations
-
-- The dashboard should be accessed via HTTPS in production
-- Consider adding authentication for public-facing deployments
-- Keep your NVIDIA API keys secure
-- Regularly update dependencies
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Open a pull request
-
-### Development Guidelines
-
-- Follow the existing code style
-- Write tests for new features
-- Keep the UI consistent
-- Document your changes
-
-## License
-
-[MIT License](LICENSE) - Feel free to use and modify as needed.
-
-## Support
-
-For issues and feature requests, please use the [GitHub Issues](https://github.com/yourusername/docker/issues) page.
-
-## Acknowledgments
-
-- [SvelteKit](https://svelte.dev) - Web framework
-- [Dockerode](https://www.npmjs.com/package/dockerode) - Docker API client
-- [Phosphor Icons](https://phosphor-icons.com) - Icon set
-- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
-
-## Disclaimer
-
-This dashboard is provided as-is. Use at your own risk. Always test in a safe environment before deploying to production systems.
+this is a personal project, not enterprise software. use at your own risk. make sure you test it in a safe environment before putting it anywhere near production systems.

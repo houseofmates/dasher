@@ -1,5 +1,5 @@
 import { json, error } from '@sveltejs/kit';
-import docker from '$lib/server/docker';
+import { docker } from '$lib/server/docker';
 import type { RequestHandler } from './$types';
 
 export const DELETE: RequestHandler = async ({ params }) => {

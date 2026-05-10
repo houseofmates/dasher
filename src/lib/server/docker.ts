@@ -1,8 +1,10 @@
 import Docker from 'dockerode';
 import path from 'path';
+export const docker = new Docker({ socketPath: process.env.DOCKER_SOCK_PATH || '/var/run/docker.sock' });
 
-// Use environment variable for main stack path, default to current directory if not set
-const searchDir = path.dirname(env.MAIN_STACK_PATH || '.');
+export async function getContainers(all = true) {
+  return await docker.listContainers({ all });
+}
 
 export async function getImages() {
   return await docker.listImages();
@@ -15,6 +17,14 @@ export async function getVolumes() {
 
 export async function getNetworks() {
   return await docker.listNetworks();
+}
+
+export function getNetwork(id: string) {
+  return docker.getNetwork(id);
+}
+
+export function getVolume(name: string) {
+  return docker.getVolume(name);
 }
 
 export async function getContainerStats(id: string) {
@@ -32,4 +42,12 @@ export async function getContainerLogs(id: string, tail = 100) {
     timestamps: true
   });
   return logs.toString();
+}
+
+export async function getContainer(id: string) {
+  return docker.getContainer(id);
+}
+
+export async function getImage(id: string) {
+  return docker.getImage(id);
 }

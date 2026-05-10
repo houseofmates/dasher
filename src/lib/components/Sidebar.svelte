@@ -7,7 +7,8 @@
     ShareNetwork, 
     FileCode, 
     ChartBar, 
-    TerminalWindow 
+    TerminalWindow,
+    ChatCircleDots
   } from 'phosphor-svelte';
   import { clsx } from 'clsx';
 
@@ -18,13 +19,16 @@
     { label: 'networks', icon: ShareNetwork, href: '/networks' },
     { label: 'compose', icon: FileCode, href: '/compose' },
     { label: 'analytics', icon: ChartBar, href: '/analytics' },
-    { label: 'terminal', icon: TerminalWindow, href: '/terminal' }
+    { label: 'terminal', icon: TerminalWindow, href: '/terminal' },
+    { label: 'chat', icon: ChatCircleDots, href: '/chat' }
   ];
 </script>
 
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface border-r border-white/10 hidden lg:flex flex-col p-6 z-40">
   <div class="mb-12">
-    <h1 class="text-accent-yellow text-2xl font-bold tracking-tighter">docker</h1>
+    <a href="/" class="block">
+      <img src="/icon.png" alt="docker" class="h-10 w-auto rounded-xl" style="background:#000;padding:4px;" />
+    </a>
   </div>
 
   <nav class="flex-1 space-y-2">

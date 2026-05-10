@@ -2,27 +2,26 @@ import { exec, spawn } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs/promises';
 import path from 'path';
-import { env } from '$env/dynamic/private';
-
 const execAsync = promisify(exec);
 
 export async function discoverStacks() {
   // Use environment variable for search directory, default to current directory if not set
-  const searchDir = path.dirname(env.MAIN_STACK_PATH || '.');
+  const mainPath = process.env.MAIN_STACK_PATH;
+  const searchDir = mainPath ? path.dirname(path.dirname(mainPath)) : '.';
   const stacks: { name: string; path: string }[] = [];
 
   try {
     // start with the main stack if it exists
-    if (env.MAIN_STACK_PATH && await fileExists(env.MAIN_STACK_PATH)) {
+    if (process.env.MAIN_STACK_PATH && await fileExists(process.env.MAIN_STACK_PATH)) {
       stacks.push({
-        name: path.basename(path.dirname(env.MAIN_STACK_PATH)),
-        path: env.MAIN_STACK_PATH
+        name: path.basename(path.dirname(process.env.MAIN_STACK_PATH)),
+        path: process.env.MAIN_STACK_PATH
       });
     }
 
     // find other stacks
     const { stdout } = await execAsync(`find ${searchDir} -name "docker-compose.ym*" -not -path "*/node_modules/*"`);
-    const files = stdout.split('\n').filter(f => f.trim() && f !== env.MAIN_STACK_PATH);
+    const files = stdout.split('\n').filter(f => f.trim() && f !== process.env.MAIN_STACK_PATH);
     
     for (const file of files) {
       stacks.push({

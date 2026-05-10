@@ -12,7 +12,8 @@
     CaretDown, 
     MagnifyingGlass,
     Plus,
-    Code
+    Code,
+    FileCode
   } from 'phosphor-svelte';
   import { clsx } from 'clsx';
   import { fade, slide, scale } from 'svelte/transition';
@@ -48,8 +49,9 @@
   });
 
   $effect(() => {
-    if (selectedStack) {
-      console.log('selected stack changed:', selectedStack.name);
+    if (selectedStack?.path) {
+      console.log('Stack changed, clearing content and loading new:', selectedStack.path);
+      yamlContent = ''; // Clear old content immediately
       loadStackContent(selectedStack.path);
     }
   });
@@ -60,7 +62,7 @@
     setTimeout(() => copied = false, 2000);
   }
 
-  let consoleElement: HTMLDivElement;
+  let consoleElement = $state<HTMLDivElement>();
   $effect(() => {
     if (executionOutput.length > 0 && consoleElement) {
       // Scroll to bottom after state update
@@ -71,17 +73,15 @@
   });
 
   async function loadStackContent(path: string) {
-    console.log('loading stack content from:', path);
+    if (!path) return;
     loading = true;
     try {
-      const res = await fetch(`/api/compose/content?path=${encodeURIComponent(path)}`);
+      const url = `/api/compose/content?path=${encodeURIComponent(path)}`;
+      const res = await fetch(url);
       if (res.ok) {
         const json = await res.json();
-        console.log('stack content loaded, length:', json.content?.length);
         yamlContent = json.content || '';
       } else {
-        const errText = await res.text();
-        console.error('failed to load stack content:', errText);
         toasts.error('failed to load stack content');
       }
     } catch (err) {
@@ -116,25 +116,31 @@
     
     executionOutput = [];
     isExecuting = true;
+    toasts.info(`starting: docker compose ${cmd}...`);
 
     const eventSource = new EventSource(`/api/compose/stream?path=${encodeURIComponent(selectedStack.path)}&command=${encodeURIComponent(cmd)}`);
 
     eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      executionOutput = [...executionOutput, data];
-      
-      if (data.type === 'exit') {
-        eventSource.close();
-        isExecuting = false;
-        if (data.code === 0) {
-          toasts.success(`command '${cmd}' completed`);
-        } else {
-          toasts.error(`command '${cmd}' failed with code ${data.code}`);
+      try {
+        const data = JSON.parse(event.data);
+        executionOutput = [...executionOutput, data];
+        
+        if (data.type === 'exit') {
+          eventSource.close();
+          isExecuting = false;
+          if (data.code === 0) {
+            toasts.success(`command '${cmd}' completed`);
+          } else {
+            toasts.error(`command '${cmd}' failed with code ${data.code}`);
+          }
         }
+      } catch (e) {
+        console.error('failed to parse stream data:', e);
       }
     };
 
-    eventSource.onerror = () => {
+    eventSource.onerror = (err) => {
+      console.error('EventSource error:', err);
       eventSource.close();
       isExecuting = false;
       toasts.error('stream disconnected');
@@ -166,41 +172,54 @@
 
 <div class="h-[calc(100dvh-200px)] flex flex-col gap-6">
   <div class="flex items-center justify-between">
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-6">
       <h2 class="text-3xl font-bold tracking-tight">compose</h2>
       
       <div class="relative">
         <button 
-          class="flex items-center gap-4 bg-surface border border-white/10 rounded-xl px-5 py-2.5 text-sm min-w-[280px] hover:border-white/20 transition-all shadow-lg group relative overflow-hidden"
+          class="flex items-center bg-surface border border-white/10 rounded-xl px-5 py-3 text-sm min-w-[360px] hover:border-white/20 transition-all shadow-lg group relative"
           onclick={() => showStackSelector = !showStackSelector}
         >
-          <div class="flex flex-col items-start min-w-0">
-            <span class="text-[10px] text-white/30 font-bold uppercase tracking-widest leading-none mb-1">active stack</span>
-            <span class="font-bold truncate preserve-case text-accent-yellow">{selectedStack?.name || 'select stack'}</span>
-          </div>
-          <div class="ml-auto w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 group-hover:bg-accent-yellow/10 transition-colors">
-            <CaretDown size={14} class={clsx("transition-transform shrink-0 text-white/40 group-hover:text-white", showStackSelector && "rotate-180")} />
+          <div class="flex items-center gap-4 w-full">
+            <div class="w-10 h-10 bg-accent-yellow/10 rounded-xl text-accent-yellow shrink-0 flex items-center justify-center group-hover:bg-accent-yellow/20 transition-all">
+              <Code size={22} weight="bold" />
+            </div>
+            
+            <div class="flex-1 flex flex-col items-start min-w-0">
+              <span class="text-[10px] text-white/20 font-bold tracking-[0.2em] leading-none mb-1">active stack</span>
+              <span class="font-bold truncate preserve-case text-white text-lg leading-tight w-full text-left">{selectedStack?.name || 'select stack'}</span>
+            </div>
+
+            <div class="shrink-0 w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center">
+              <CaretDown size={14} class={clsx("transition-transform text-white/40 group-hover:text-white", showStackSelector && "rotate-180")} />
+            </div>
           </div>
         </button>
 
         {#if showStackSelector}
           <div 
-            class="absolute top-full left-0 mt-2 w-full bg-surface/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden py-1"
+            class="absolute top-full left-0 mt-2 w-full bg-surface/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden py-1"
             in:slide={{ duration: 150 }}
             out:fade
           >
             {#each data.stacks as stack}
               <button 
                 class={clsx(
-                  "w-full text-left px-4 py-2 text-sm hover:bg-white/5 transition-colors preserve-case",
-                  selectedStack?.path === stack.path ? "text-accent-yellow font-bold" : "text-white/60"
+                  "w-full text-left px-4 py-3 text-sm hover:bg-accent-yellow hover:text-black transition-all preserve-case flex items-center justify-between group",
+                  selectedStack?.path === stack.path ? "bg-white/5 text-accent-yellow font-bold" : "text-white/60"
                 )}
                 onclick={() => {
                   selectedStack = stack;
                   showStackSelector = false;
                 }}
               >
-                {stack.name}
+                <div class="flex items-center gap-3">
+                  <div class={clsx("w-1.5 h-1.5 rounded-full", selectedStack?.path === stack.path ? "bg-accent-yellow" : "bg-transparent")}></div>
+                  <span>{stack.name}</span>
+                </div>
+                {#if selectedStack?.path === stack.path}
+                  <Check size={14} weight="bold" />
+                {/if}
               </button>
             {/each}
           </div>
@@ -216,7 +235,7 @@
           <Copy size={18} class="text-white/40" />
         {/if}
       </button>
-      <button class="btn-secondary flex items-center gap-2 text-xs py-2.5" onclick={aiFix}>
+      <button class="btn-secondary flex items-center gap-2 text-xs py-2.5" style="color: #050505;" onclick={aiFix}>
         <MagicWand size={16} />
         ai fix
       </button>
@@ -240,11 +259,14 @@
         )}>
           <div class="flex flex-col items-center gap-2">
             <CircleNotch size={32} class="animate-spin text-accent-yellow" />
-            <span class="text-xs text-white/40 font-bold uppercase tracking-widest">loading stack...</span>
+            <span class="text-xs text-white/40 font-bold tracking-widest">loading stack...</span>
           </div>
         </div>
-        <Editor bind:value={yamlContent} />
+        {#key selectedStack?.path}
+          <Editor bind:value={yamlContent} />
+        {/key}
       </div>
+
 
       {#if executionOutput.length > 0 || isExecuting}
         <div 
@@ -253,8 +275,8 @@
           transition:slide
         >
           <div class="flex items-center justify-between sticky top-0 bg-black/60 backdrop-blur-md -m-4 mb-2 p-2 px-4 border-b border-white/5 z-10">
-            <span class="text-white/20 uppercase tracking-widest text-[9px] font-bold">execution output</span>
-            <button class="text-white/20 hover:text-white text-[10px] uppercase font-bold tracking-tighter" onclick={() => executionOutput = []}>clear</button>
+            <span class="text-white/20 tracking-widest text-[9px] font-bold">execution output</span>
+            <button class="text-white/20 hover:text-white text-[10px] font-bold tracking-tighter" onclick={() => executionOutput = []}>clear</button>
           </div>
           {#each executionOutput as line}
             <div class={clsx(
@@ -281,7 +303,7 @@
 
     <div class="w-72 space-y-4 shrink-0 flex flex-col">
       <div class="card space-y-4">
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest">stack actions</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest">stack actions</p>
         <div class="grid grid-cols-1 gap-2">
           <button class="w-full btn-primary flex items-center gap-3 justify-center py-3" onclick={() => runCommand('up -d')} disabled={isExecuting}>
             <Play size={20} weight="fill" />
@@ -300,7 +322,7 @@
 
       <div class="card flex-1 flex flex-col min-h-0 gap-4">
         <div class="flex items-center justify-between">
-          <p class="text-xs font-bold text-white/40 uppercase tracking-widest">snippets</p>
+          <p class="text-xs font-bold text-white/40 tracking-widest">snippets</p>
           <Code size={16} class="text-white/20" />
         </div>
         

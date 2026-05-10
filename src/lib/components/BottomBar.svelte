@@ -3,18 +3,24 @@
   import { 
     Cube, 
     Images, 
+    HardDrive,
+    ShareNetwork,
     FileCode, 
     ChartBar, 
-    TerminalWindow 
+    TerminalWindow,
+    ChatCircleDots
   } from 'phosphor-svelte';
   import { clsx } from 'clsx';
 
   const navItems = [
     { label: 'containers', icon: Cube, href: '/containers' },
     { label: 'images', icon: Images, href: '/images' },
+    { label: 'volumes', icon: HardDrive, href: '/volumes' },
+    { label: 'networks', icon: ShareNetwork, href: '/networks' },
     { label: 'compose', icon: FileCode, href: '/compose' },
     { label: 'analytics', icon: ChartBar, href: '/analytics' },
-    { label: 'terminal', icon: TerminalWindow, href: '/terminal' }
+    { label: 'terminal', icon: TerminalWindow, href: '/terminal' },
+    { label: 'chat', icon: ChatCircleDots, href: '/chat' }
   ];
 </script>
 

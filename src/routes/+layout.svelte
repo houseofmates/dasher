@@ -1,9 +1,22 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Sidebar from '$lib/components/Sidebar.svelte';
   import BottomBar from '$lib/components/BottomBar.svelte';
   import Toaster from '$lib/components/Toaster.svelte';
+  import { StatusBar, Style } from '@capacitor/status-bar';
   import './layout.css';
   let { children } = $props();
+
+  onMount(async () => {
+    try {
+      await StatusBar.setStyle({ style: Style.Dark });
+      await StatusBar.setBackgroundColor({ color: '#050505' });
+      // optimized for modern tall screens like pixel 10 pro
+      await StatusBar.setOverlaysWebView({ overlay: false });
+    } catch {
+      // not running in capacitor, ignore
+    }
+  });
 </script>
 
 <Toaster />

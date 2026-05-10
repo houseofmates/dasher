@@ -89,7 +89,7 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <div class="md:col-span-2 card space-y-6">
       <div>
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">resource usage</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest mb-4">resource usage</p>
         <div class="h-64 bg-black/20 rounded-xl overflow-hidden border border-white/5">
           <StatsChart containerId={data.container.id} />
         </div>
@@ -98,7 +98,7 @@
 
     <div class="space-y-6">
       <div class="card space-y-4">
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest">quick actions</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest">quick actions</p>
         <div class="grid grid-cols-2 gap-3">
           {#if data.container.state !== 'running'}
             <button class="btn-primary flex items-center justify-center gap-2 py-3" onclick={() => performAction('start')} disabled={loadingAction !== null}>
@@ -136,13 +136,13 @@
     </div>
     <!-- CPU Stats -->
     <div class="card space-y-4">
-      <p class="text-xs font-bold text-white/40 uppercase tracking-widest">cpu usage</p>
+      <p class="text-xs font-bold text-white/40 tracking-widest">cpu usage</p>
       <StatsChart id={data.container.id} label="cpu" />
     </div>
 
     <!-- RAM Stats -->
     <div class="card space-y-4">
-      <p class="text-xs font-bold text-white/40 uppercase tracking-widest">memory usage</p>
+      <p class="text-xs font-bold text-white/40 tracking-widest">memory usage</p>
       <StatsChart id={data.container.id} label="ram" />
     </div>
   </div>
@@ -151,7 +151,7 @@
     <!-- Details -->
     <div class="card space-y-6">
       <div>
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest mb-3">environment</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest mb-3">environment</p>
         <div class="space-y-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
           {#each data.container.env as env}
             <div class="flex items-center gap-2 text-xs font-mono bg-black/30 p-2 rounded border border-white/5">
@@ -163,7 +163,7 @@
       </div>
 
       <div>
-        <p class="text-xs font-bold text-white/40 uppercase tracking-widest mb-3">ports</p>
+        <p class="text-xs font-bold text-white/40 tracking-widest mb-3">ports</p>
         <div class="space-y-2">
           {#each Object.entries(data.container.ports || {}) as [port, bindings]}
             <div class="flex items-center justify-between text-xs font-mono bg-black/30 p-2 rounded border border-white/5">
@@ -179,7 +179,7 @@
 
     <!-- Logs -->
     <div class="card flex flex-col h-[500px]">
-      <p class="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">live logs</p>
+      <p class="text-xs font-bold text-white/40 tracking-widest mb-4">live logs</p>
       <div 
         bind:this={logsElement}
         class="flex-1 bg-black/50 rounded-lg p-4 font-mono text-[11px] overflow-y-auto custom-scrollbar"

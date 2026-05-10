@@ -1,6 +1,6 @@
 import { WebSocketServer } from 'ws';
 import type { Server } from 'http';
-import docker from './docker';
+import { docker } from './docker';
 
 export function setupWebSocket(server: Server) {
   const wss = new WebSocketServer({ noServer: true });

@@ -25,7 +25,7 @@
   };
 </script>
 
-<div class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full">
+<div class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full" role="status" aria-live="polite">
   {#each $toasts as toast (toast.id)}
     <div
       animate:flip={{ duration: 300 }}
@@ -34,7 +34,19 @@
       class="pointer-events-auto flex items-start gap-3 p-4 rounded-xl border backdrop-blur-md shadow-2xl {colors[toast.type]}"
     >
       <div class="mt-0.5">
-        <svelte:component this={icons[toast.type]} size={20} weight="fill" />
+        {#if toast.type === 'success'}
+          <CheckCircle size={20} weight="fill" />
+        {:else}
+          {#if toast.type === 'error'}
+            <XCircle size={20} weight="fill" />
+          {:else}
+            {#if toast.type === 'warning'}
+              <Warning size={20} weight="fill" />
+            {:else}
+              <Info size={20} weight="fill" />
+            {/if}
+          {/if}
+        {/if}
       </div>
       
       <div class="flex-1 min-w-0">

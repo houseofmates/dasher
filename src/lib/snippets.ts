@@ -1,7 +1,7 @@
 export const snippets = [
   {
-    name: 'Nginx Service',
-    description: 'Basic Nginx web server',
+    name: 'nginx service',
+    description: 'basic nginx web server',
     content: `  nginx:
     image: nginx:latest
     ports:
@@ -9,8 +9,8 @@ export const snippets = [
     restart: always`
   },
   {
-    name: 'Redis Service',
-    description: 'Redis in-memory data store',
+    name: 'redis service',
+    description: 'redis in-memory data store',
     content: `  redis:
     image: redis:alpine
     ports:
@@ -18,8 +18,8 @@ export const snippets = [
     restart: always`
   },
   {
-    name: 'Postgres Service',
-    description: 'PostgreSQL database with volume',
+    name: 'postgres service',
+    description: 'postgresql database with volume',
     content: `  db:
     image: postgres:latest
     environment:
@@ -34,8 +34,8 @@ volumes:
   db_data:`
   },
   {
-    name: 'MariaDB Service',
-    description: 'MariaDB database',
+    name: 'mariadb service',
+    description: 'mariadb database',
     content: `  mariadb:
     image: mariadb:latest
     environment:
@@ -51,8 +51,8 @@ volumes:
   db_data:`
   },
   {
-    name: 'Nvidia GPU Runtime',
-    description: 'Service with GPU access',
+    name: 'nvidia gpu runtime',
+    description: 'service with gpu access',
     content: `  gpu-app:
     image: my-gpu-app:latest
     deploy:
@@ -64,3 +64,4 @@ volumes:
               capabilities: [gpu]`
   }
 ];
+
