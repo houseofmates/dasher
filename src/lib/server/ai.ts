@@ -1,18 +1,12 @@
-import { env } from '$env/dynamic/private';
 import { config } from 'dotenv';
 
 // Load environment variables explicitly
 config();
 
-// Also ensure they're available in process.env for fallback
-if (!process.env.NVIDIA_API_KEY_1 && env.NVIDIA_API_KEY_1) {
-  process.env.NVIDIA_API_KEY_1 = env.NVIDIA_API_KEY_1;
-}
-
 let keyIndex = 0;
 
 export function getNextApiKey() {
-  const keys = Object.entries(env)
+  const keys = Object.entries(process.env)
     .filter(([key]) => key.startsWith('NVIDIA_API_KEY_'))
     .sort(([a], [b]) => {
       const numA = parseInt(a.replace('NVIDIA_API_KEY_', ''), 10);
