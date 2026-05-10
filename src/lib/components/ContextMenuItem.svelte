@@ -15,7 +15,7 @@
   let spanElement: HTMLSpanElement;
   
   // Force label to lowercase
-  $: lowercaseLabel = label.toLowerCase();
+  const lowercaseLabel = $derived(label.toLowerCase());
   
   // Force text to lowercase after mount
   onMount(() => {
