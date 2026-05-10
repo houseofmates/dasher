@@ -67,6 +67,20 @@
   .fixed.z-\[100\] span {
     text-transform: lowercase !important;
   }
+  
+  /* Target the specific context menu structure */
+  .fixed.z-\[100\].min-w-\[160px\] button span,
+  .fixed.z-\[100\].min-w-\[160px\] button,
+  .fixed.z-\[100\].bg-surface button span,
+  .fixed.z-\[100\].bg-surface button {
+    text-transform: lowercase !important;
+  }
+  
+  /* Most aggressive targeting */
+  div[class*="fixed"][class*="z-"] button span,
+  div[class*="fixed"][class*="z-"] button {
+    text-transform: lowercase !important;
+  }
 
   /* scrollbar styling */
   ::-webkit-scrollbar {

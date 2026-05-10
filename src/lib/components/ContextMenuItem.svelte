@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
   import type { Component, Snippet } from 'svelte';
   import { clsx } from 'clsx';
 
@@ -11,9 +12,18 @@
   }
 
   let { label, icon: Icon, onclick, variant = 'default', disabled = false }: Props = $props();
+  let spanElement: HTMLSpanElement;
   
   // Force label to lowercase
   $: lowercaseLabel = label.toLowerCase();
+  
+  // Force text to lowercase after mount
+  onMount(() => {
+    if (spanElement) {
+      spanElement.textContent = label.toLowerCase();
+      spanElement.style.textTransform = 'lowercase';
+    }
+  });
 </script>
 
 <button
