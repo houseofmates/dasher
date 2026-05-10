@@ -40,7 +40,31 @@
   .context-menu-item,
   .context-menu-item *,
   [class*="context-menu"] span,
-  [class*="context-menu"] button span {
+  [class*="context-menu"] button span,
+  button span {
+    text-transform: lowercase !important;
+  }
+  
+  /* Force all button text to lowercase */
+  button span,
+  .fixed button span,
+  .fixed.z-\[100\] button span,
+  .fixed.z-\[100\] button,
+  .fixed.z-\[100\] span,
+  .fixed.z-\[100\] * {
+    text-transform: lowercase !important;
+  }
+  
+  /* Target context menu specifically */
+  .fixed.z-\[100\] {
+    text-transform: lowercase !important;
+  }
+  
+  .fixed.z-\[100\] button {
+    text-transform: lowercase !important;
+  }
+  
+  .fixed.z-\[100\] span {
     text-transform: lowercase !important;
   }
 
