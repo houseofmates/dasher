@@ -1,4 +1,8 @@
 import { env } from '$env/dynamic/private';
+import { config } from 'dotenv';
+
+// Load environment variables explicitly
+config();
 
 let keyIndex = 0;
 
