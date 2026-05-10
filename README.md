@@ -36,23 +36,6 @@ this is a sleek, dark-themed docker management dashboard built with sveltekit. i
 - docker running on your system
 - access to docker socket (`/var/run/docker.sock`)
 
-### installation
-
-```bash
-# clone the repo
-git clone <your-repo-url>
-cd docker
-
-# install dependencies
-npm install
-
-# copy environment variables
-cp .env.example .env
-
-# start development server
-npm run dev
-```
-
 ### building for production
 
 ```bash
