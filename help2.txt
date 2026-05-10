@@ -1,2 +1,0 @@
-npm warn deprecated create-svelte@7.0.1: create-svelte has been deprecated - please use https://www.npmjs.com/package/sv instead
-'npm create svelte' has been replaced with 'npx sv create'

@@ -1,0 +1,30 @@
+[Unit]
+Description=Auto-push service for monitoring code changes and pushing to GitHub
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=house
+Group=house
+WorkingDirectory=/home/house/docker
+ExecStart=/usr/bin/node /home/house/docker/auto-push-service.js
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=auto-push
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/house/docker
+ProtectHome=true
+
+# Resource limits
+MemoryMax=256M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+{
+  "watchPath": "/home/house/docker",
+  "excludePatterns": [
+    "node_modules",
+    ".git",
+    "build",
+    "dist",
+    ".svelte-kit",
+    "auto-push-*.js",
+    "auto-push-*.json",
+    "*.log",
+    ".env",
+    ".env.local"
+  ],
+  "commitTimeout": 10000,
+  "branch": "main",
+  "commitMessage": "Auto-update: {timestamp}",
+  "pushDelay": 2000,
+  "logFile": "/home/house/docker/auto-push.log",
+  "maxLogSize": 1048576
+}
