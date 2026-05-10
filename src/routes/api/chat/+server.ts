@@ -144,8 +144,21 @@ async function buildSystemPrompt(): Promise<string> {
 }
 
 export const POST: RequestHandler = async ({ request }) => {
-  const apiKey = getNextApiKey();
-  if (!apiKey) throw error(503, 'no nvidia api keys configured');
+  // Direct environment variable access
+  config();
+  const keys = Object.entries(process.env)
+    .filter(([key]) => key.startsWith('NVIDIA_API_KEY_'))
+    .sort(([a], [b]) => {
+      const numA = parseInt(a.replace('NVIDIA_API_KEY_', ''), 10);
+      const numB = parseInt(b.replace('NVIDIA_API_KEY_', ''), 10);
+      return numA - numB;
+    })
+    .map(([_, value]) => value as string)
+    .filter(Boolean);
+  
+  if (keys.length === 0) throw error(503, 'no nvidia api keys configured');
+  
+  const apiKey = keys[0]; // Use first key for simplicity
 
   const body = await request.json() as {
     messages: Array<{ role: string; content: string | Array<{ type: string; text?: string; image_url?: { url: string } }> }>;
