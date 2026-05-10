@@ -1,147 +1,124 @@
-# docker management dashboard
+# docker
 
-hey! so this is a web-based dashboard i've been working on to manage docker containers, stacks, and networks. it's built with sveltekit and has a pretty clean interface for keeping track of all your docker stuff.
+Hermes Agent Docker configuration and entrypoint scripts.
 
-## what can it do?
+## Overview
 
-- **see all your containers** - start, stop, restart, view logs
-- **find docker-compose stacks** - automatically discovers stacks in your system
-- **web-based terminal** - access container shells through your browser
-- **network management** - view and manage docker networks
-- **analytics** - basic monitoring of container resource usage
+This repository contains the Dockerfile (if applicable), entrypoint.sh, and supporting configuration for running Hermes Agent in a containerized environment. The setup is designed to be generic and portable across Linux-based systems, using environment variables for configuration to avoid hardcoding personal or setup-specific values.
 
-## screenshots (just imagine them)
+## Usage
 
-you know the drill - containers view, terminal view, all that good stuff. it's pretty neat.
+1. Copy the  to  and fill in the required values.
+2. Build the Docker image (if a Dockerfile is provided) or use the entrypoint script directly with your container runtime.
+3. The container expects a volume mounted at  for persistent Hermes data (config, skills, memories, etc.).
 
-## installation
+## Environment Variables
 
-### what you'll need
+Refer to  for a list of supported environment variables and their descriptions.
 
-- node.js 18+ (check the `.nvmrc` for the version i use)
-- docker running somewhere
-- npm or yarn
+## Entrypoint
 
-### quick start
+The  script handles:
 
-```bash
-# clone it down
-git clone https://github.com/yourusername/docker.git
-cd docker
+- Privilege dropping via  when running as root.
+- UID/GID mapping for the hermes user to match host ownership.
+- Ownership fixing for the data volume.
+- Creation of essential directory structure.
+- Copying example configuration files if they do not exist.
+- Starting the Hermes dashboard as a background side-process (if enabled).
+- Executing the final command (either Warning: Unknown toolsets: video
 
-# install dependencies
-npm install
 
-# copy the example env file
-cp .env.example .env.local
 
-# edit it to match your setup (paths to docker socket, compose files, etc.)
-nvim .env.local
 
-# run the dev server
-npm run dev
-```
 
-it'll be running at whatever port you set in your `.env.local` (default is 6967).
 
-## environment variables
 
-here's what you can configure:
 
-```env
-# docker socket path - default is /var/run/docker.sock
-DOCKER_SOCK_PATH=/var/run/docker.sock
 
-# main docker-compose stack - where your main compose file lives
-MAIN_STACK_PATH=
 
-# cloudflare tunnel stuff - if you're using cloudflare
-CLOUDFLARE_CONFIG_PATH=/etc/cloudflared/config.yml
-CLOUDFLARE_ACCESS_LOG_PATH=/var/log/cloudflared/access.log
 
-# app settings
-PORT=6967
-HOST=0.0.0.0
 
-# nvidia api keys (for fixing yaml) - get these from nvidia developer portal
-# NVIDIA_API_KEY_1=
-# NVIDIA_API_KEY_2=
-# ...
-```
 
-just put these in your `.env.local` file. the `.env.example` has placeholders.
 
-## project structure
 
-- `src/routes/` - all the pages (containers, images, networks, terminal, etc.)
-- `src/lib/server/` - backend utils, docker stuff, compose handling
-- `src/lib/` - shared components and utils
-- `static/` - static assets
 
-it's a pretty standard sveltekit project.
 
-## development
 
-i use nvm to manage node versions - check `.nvmrc` for the version i'm on. other than that, just:
 
-```bash
-npm install
-npm run dev
-```
 
-hot reloading works great for svelte stuff.
 
-## building for production
 
-```bash
-npm run build
-npm run preview  # check it out locally
-npm run start    # actually start the production server
-```
 
-## docker deployment
 
-yeah, you can dockerize this too. here's a sample dockerfile:
+╭─ ♡ version 0.12.0 (2026.4.30) ♡ upstream bf16d8ad ♡ local be950261 (+2 carri─╮
+│                                      ♡ tools ♡                               │
+│                   ♡                  browser: browser_back, browser_click,   │
+│                   ♡                  ...                                     │
+│                    ♡                 browser-cdp: browser_cdp,               │
+│                    ♡                 browser_dialog                          │
+│                     ♡                clarify: clarify                        │
+│                     ♡                code_execution: execute_code            │
+│                      ♡               cronjob: cronjob                        │
+│                      ♡               delegation: delegate_task               │
+│                       ♡              file: patch, read_file, search_files,   │
+│                       ♡              write_file                              │
+│                        ♡             hermes-yuanbao: yb_query_group_info,    │
+│                        ♡             ...                                     │
+│                        ♡             (and 18 more toolsets...)               │
+│                       ♡                                                      │
+│                       ♡              ♡ mcps ♡                                │
+│                      ♡               memster (stdio) — 113 tool(s)           │
+│                      ♡               nocobase (stdio) — 10 tool(s)           │
+│                     ♡                code-indexer (stdio) — 12 tool(s)       │
+│                     ♡                                                        │
+│                    ♡                 ♡ skills ♡                              │
+│                    ♡                 browser: browser-automation,            │
+│                   ♡                  browser-captcha-automation,...          │
+│                   ♡                  coding: base44, base44-cli, card-grid,  │
+│                   ♡                  case-sensitivity...                     │
+│                   ♡                  creative: animation, ascii-art,         │
+│                   ♡                  ascii-video, baoyu-comic,...            │
+│                    ♡                 development: Remote File Editing with   │
+│                    ♡                 Ed, auto-git-update, b...               │
+│                     ♡                general: cloudflare, edit, email,       │
+│                     ♡                search                                  │
+│                      ♡               hermes: cron-management,                │
+│                                      customization-recovery, find-s...       │
+│            ♡ kimi-k2.6 ♡             mcp: fastmcp, mcp-rest-bridge-pattern,  │
+│             /home/house              mcp-stdio-bri...                        │
+│  ♡ session 20260509_181420_f18cf2 ♡  media: audio-router, gif, heartmula,    │
+│                                      image-loader, img...                    │
+│                                      memster: llm-wiki,                      │
+│                                      memster-activity-system,                │
+│                                      memster-core...                         │
+│                                      model-stuff: benchmark,                 │
+│                                      context-compression-tool-pruning,       │
+│                                      go...                                   │
+│                                      orchestration: claude-code, codex,      │
+│                                      opencode                                │
+│                                      research: blog-watcher, wiki            │
+│                                                                              │
+│                                      155 tools ♡ 194 skills ♡ 3 mcps         │
+╰──────────────────────────────────────────────────────────────────────────────╯
 
-```dockerfile
-FROM node:18-alpine as builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+haii :3
+✦ tip: Cron jobs run in completely fresh agent sessions — prompts must be 
+self-contained.
 
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=builder /app/.svelte-kit/output/server/ ./
-COPY --from=builder /app/package.json .
-COPY --from=builder /app/src/ ./
-COPY --from=builder /app/static/ ./static/
-RUN npm install --production
 
-EXPOSE 6967
-CMD npm run start
-```
+byee :3 or a direct executable).
 
-## contributing
+## Development
 
-feel like helping out? cool.
+To contribute:
 
-1. fork the repo
-2. make a branch
-3. do your thing
-4. open a pr
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Ensure the entrypoint script remains generic and does not contain hardcoded paths or values specific to your setup.
+5. Submit a pull request.
 
-just keep the code style consistent and write tests if you're adding features.
+## License
 
-## license
-
-mit. do what you want with it.
-
-## support
-
-open an issue on github if you run into problems. i'll try to help out when i can.
-
-## disclaimer
-
-this is a personal project, not enterprise software. use at your own risk. make sure you test it in a safe environment before putting it anywhere near production systems.
+This project is licensed under the MIT License - see the LICENSE file for details.
