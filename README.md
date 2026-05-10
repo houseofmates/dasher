@@ -96,19 +96,19 @@ the app uses websockets to provide real-time updates about container status, log
 <h3 align="center">terminal access</h3> 
 integrated terminal lets you access running containers directly from your browser with full terminal emulation.
 
-<h3align="compose support">e</h3> 
+<h3 align="center">compose support</h3> 
 visual editor for docker-compose files with syntax highlighting and validation.
 
-<h3align="center">mobile app</h3> 
+<h3 align="center">mobile app</h3> 
 the app includes capacitor configuration, allowing it to be packaged as a native mobile app for android.
 
-<h2align="center">contributing</h2> 
+<h2 align="center">contributing</h2> 
 1. fork the repository
 2. create a feature branch
 3. make your changes
 4. ensure the code follows the project style (lowercase, human-friendly)
 5. submit a pull request
 
-<h2align="center">license</h2> 
+<h2 align="center">license</h2> 
 
 mates license
