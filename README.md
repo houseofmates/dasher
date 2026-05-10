@@ -130,8 +130,4 @@ the app includes capacitor configuration, allowing it to be packaged as a native
 
 ## license
 
-this project is licensed under the mit license - see the license file for details.
-
----
-
-*built with ❤️ for the docker community*
+mates license
