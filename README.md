@@ -109,6 +109,4 @@ the app includes capacitor configuration, allowing it to be packaged as a native
 4. ensure the code follows the project style (lowercase, human-friendly)
 5. submit a pull request
 
-<h2 align="center">license</h2> 
-
-mates license
+<div align="center">[mates license]](./LICENSE)</div>
