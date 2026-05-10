@@ -1,6 +1,10 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { getNextApiKey } from '$lib/server/ai';
+import { config } from 'dotenv';
+
+// Ensure environment is loaded
+config();
 import fs from 'fs/promises';
 import path from 'path';
 import docker from 'dockerode';
