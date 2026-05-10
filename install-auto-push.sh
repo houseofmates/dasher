@@ -66,6 +66,7 @@ sudo cp "${SCRIPT_DIR}/${SERVICE_FILE}" "${SYSTEMD_SERVICE_PATH}"
 sudo sed -i "s|/home/house/docker|${SCRIPT_DIR}|g" "${SYSTEMD_SERVICE_PATH}"
 sudo sed -i "s|User=house|User=${USER}|g" "${SYSTEMD_SERVICE_PATH}"
 sudo sed -i "s|Group=house|Group=${USER}|g" "${SYSTEMD_SERVICE_PATH}"
+sudo sed -i "s|ReadWritePaths=/home/house/docker|ReadWritePaths=${SCRIPT_DIR} ${HOME}/.gitconfig|g" "${SYSTEMD_SERVICE_PATH}"
 
 # Update config file with correct paths
 CONFIG_FILE="${SCRIPT_DIR}/auto-push-config.json"

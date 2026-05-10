@@ -6,6 +6,11 @@ config();
 let keyIndex = 0;
 
 export function getNextApiKey() {
+  // Ensure environment is loaded
+  if (!process.env.NVIDIA_API_KEY_1) {
+    config();
+  }
+  
   const keys = Object.entries(process.env)
     .filter(([key]) => key.startsWith('NVIDIA_API_KEY_'))
     .sort(([a], [b]) => {
