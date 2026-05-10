@@ -6,7 +6,7 @@ import path from 'path';
 import docker from 'dockerode';
 
 const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1';
-const MODEL = 'moonshotai/kimi-k2';
+const MODEL = 'deepseek-ai/deepseek-v4-pro';
 
 const dockerClient = new docker({
   socketPath: process.env.DOCKER_SOCK_PATH || '/var/run/docker.sock'
