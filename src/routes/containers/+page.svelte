@@ -178,7 +178,6 @@
     {#each filteredContainers as container (container.id)}
       <div 
         class="card group relative flex flex-col justify-between min-h-[200px] border border-white/5 hover:border-accent-yellow/20 transition-all overflow-hidden bg-surface/40 backdrop-blur-md cursor-pointer"
-        animate:slide={{ duration: 200 }}
         in:fade={{ duration: 200 }}
         role="button"
         tabindex="0"

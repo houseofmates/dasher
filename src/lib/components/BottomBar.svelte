@@ -34,7 +34,7 @@
         active ? "text-accent-yellow" : "text-white/60"
       )}
     >
-      <item.icon size={28} weight={active ? "fill" : "regular"} strokeWidth={1.5} />
+      <item.icon size={28} weight={active ? "fill" : "regular"} />
       <span class="text-[10px] font-bold tracking-tight">{item.label}</span>
     </a>
   {/each}

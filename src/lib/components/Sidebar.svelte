@@ -41,7 +41,7 @@
           active ? "bg-accent-yellow text-black" : "text-white hover:bg-white/5"
         )}
       >
-        <item.icon size={24} weight={active ? "fill" : "regular"} strokeWidth={1.5} />
+        <item.icon size={24} weight={active ? "fill" : "regular"} />
         <span class="font-medium">{item.label}</span>
       </a>
     {/each}

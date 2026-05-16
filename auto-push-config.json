@@ -1,5 +1,5 @@
 {
-  "watchPath": "/home/house/docker",
+  "watchPath": "/home/house/dasher",
   "excludePatterns": [
     "node_modules",
     ".git",
@@ -16,6 +16,6 @@
   "branch": "main",
   "commitMessage": "Auto-update: {timestamp}",
   "pushDelay": 2000,
-  "logFile": "/home/house/docker/auto-push.log",
+  "logFile": "/home/house/dasher/auto-push.log",
   "maxLogSize": 1048576
 }
