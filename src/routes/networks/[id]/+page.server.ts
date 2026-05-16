@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import { docker } from '$lib/server/docker';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params }: { params: any }) => {
   try {
     const network = await docker.getNetwork(params.id).inspect();
     return { network };

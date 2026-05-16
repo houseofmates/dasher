@@ -10,7 +10,7 @@
   let searchQuery = $state('');
 
   const filteredNetworks = $derived(
-    data.networks.filter(n => n.Name.toLowerCase().includes(searchQuery.toLowerCase()))
+    data.networks.filter((n: any) => n.Name.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   async function removeNetwork(id: string) {

@@ -63,17 +63,17 @@ print_status "Installing systemd service..."
 sudo cp "${SCRIPT_DIR}/${SERVICE_FILE}" "${SYSTEMD_SERVICE_PATH}"
 
 # Update service file with correct paths
-sudo sed -i "s|/home/house/docker|${SCRIPT_DIR}|g" "${SYSTEMD_SERVICE_PATH}"
+sudo sed -i "s|/home/house/dasher|${SCRIPT_DIR}|g" "${SYSTEMD_SERVICE_PATH}"
 sudo sed -i "s|User=house|User=${USER}|g" "${SYSTEMD_SERVICE_PATH}"
 sudo sed -i "s|Group=house|Group=${USER}|g" "${SYSTEMD_SERVICE_PATH}"
-sudo sed -i "s|ReadWritePaths=/home/house/docker|ReadWritePaths=${SCRIPT_DIR} ${HOME}/.gitconfig|g" "${SYSTEMD_SERVICE_PATH}"
+sudo sed -i "s|ReadWritePaths=/home/house/dasher|ReadWritePaths=${SCRIPT_DIR} ${HOME}/.gitconfig|g" "${SYSTEMD_SERVICE_PATH}"
 
 # Update config file with correct paths
 CONFIG_FILE="${SCRIPT_DIR}/auto-push-config.json"
 if [ -f "$CONFIG_FILE" ]; then
     print_status "Updating configuration file..."
-    sed -i "s|/home/house/docker|${SCRIPT_DIR}|g" "$CONFIG_FILE"
-    sed -i "s|/home/house/docker/auto-push.log|${SCRIPT_DIR}/auto-push.log|g" "$CONFIG_FILE"
+    sed -i "s|/home/house/dasher|${SCRIPT_DIR}|g" "$CONFIG_FILE"
+    sed -i "s|/home/house/dasher/auto-push.log|${SCRIPT_DIR}/auto-push.log|g" "$CONFIG_FILE"
 fi
 
 # Reload systemd

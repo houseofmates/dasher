@@ -99,6 +99,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {#each data.containerStats as container}
+      {#if container}
       {@const cpu = ((container.stats.cpu_stats.cpu_usage.total_usage - container.stats.precpu_stats.cpu_usage.total_usage) / (container.stats.cpu_stats.system_cpu_usage - container.stats.precpu_stats.system_cpu_usage)) * 100 * (container.stats.cpu_stats.online_cpus || 1)}
       {@const mem = (container.stats.memory_stats.usage / container.stats.memory_stats.limit) * 100}
       {@const memMb = container.stats.memory_stats.usage / (1024 * 1024)}
@@ -130,6 +131,7 @@
           </div>
         </div>
       </div>
+      {/if}
     {/each}
   </div>
 

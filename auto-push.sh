@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPO_DIR="/home/house/docker"
+REPO_DIR="/home/house/dasher"
 cd "$REPO_DIR" || exit 1
 
 # Function to check if there are uncommitted changes

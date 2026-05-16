@@ -63,7 +63,7 @@
 {#if show}
   <div 
     bind:this={menuElement}
-    class="fixed z-[100] min-w-[160px] bg-surface/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden py-1.5"
+    class="fixed z-[100] min-w-[160px] bg-[#050505] border border-white/10 rounded-xl shadow-2xl overflow-hidden py-1.5"
     style="left: {adjustedX}px; top: {adjustedY}px;"
     in:scale={{ duration: 150, start: 0.95 }}
     out:fade={{ duration: 100 }}

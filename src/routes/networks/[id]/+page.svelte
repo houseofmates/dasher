@@ -91,7 +91,7 @@
 
       <div class="card space-y-4">
         <p class="text-xs font-bold text-white/40 tracking-widest">ipam config</p>
-        {#if network.IPAM?.Config?.length > 0}
+        {#if network.IPAM?.Config && network.IPAM.Config.length > 0}
           {#each network.IPAM.Config as config}
             <div class="space-y-2 p-3 bg-white/5 rounded-lg border border-white/5">
               <div class="flex justify-between">

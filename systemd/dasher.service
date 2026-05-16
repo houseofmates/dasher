@@ -1,0 +1,25 @@
+[Unit]
+Description=Dasher - Zero-maintenance Portainer Alternative
+After=docker.service network-online.target
+Wants=docker.service network-online.target
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+[Service]
+Type=exec
+User=house
+Group=house
+WorkingDirectory=/home/house/dasher
+ExecStart=/usr/bin/node server.js
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+
+Environment=DASHER_DATA_PATH=/home/house/dasher/data
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=dasher
+
+[Install]
+WantedBy=multi-user.target

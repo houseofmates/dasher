@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, scale } from 'svelte/transition';
+  import { fade, slide, scale } from 'svelte/transition';
   import { invalidateAll } from '$app/navigation';
   import { MagnifyingGlass, Trash, Download, CircleNotch, Info, DotsThreeVertical, Tag } from 'phosphor-svelte';
   import { clsx } from 'clsx';
@@ -13,8 +13,8 @@
   let newImage = $state('');
 
   const filteredImages = $derived(
-    data.images.filter(img => 
-      img.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
+    data.images.filter((img: any) =>
+      img.tags.some((t: any) => t.toLowerCase().includes(searchQuery.toLowerCase()))
     )
   );
 

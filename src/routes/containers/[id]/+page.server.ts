@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import { docker } from '$lib/server/docker';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params }: { params: any }) => {
   const { id } = params;
   try {
     const container = docker.getContainer(id);

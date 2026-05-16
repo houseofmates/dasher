@@ -1,8 +1,7 @@
 import { json, error } from '@sveltejs/kit';
 import fs from 'fs/promises';
-import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ url }) => {
+export const GET = async ({ url }: { url: URL }) => {
   const path = url.searchParams.get('path');
   if (!path) throw error(400, 'path required');
   try {

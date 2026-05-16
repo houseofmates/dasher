@@ -1,11 +1,14 @@
 <script lang="ts">
-  import { HardDrive, Calendar, Database, ArrowLeft, Trash } from 'phosphor-svelte';
+  import { HardDrive, Calendar, Database, ArrowLeft, Trash, Pencil, Check, X } from 'phosphor-svelte';
   import { toasts } from '$lib/toast';
   import { goto } from '$app/navigation';
   import { clsx } from 'clsx';
 
   let { data } = $props();
   const volume = $derived(data.volume);
+  let isEditingName = $state(false);
+  let editingName = $state('');
+  let isRenaming = $state(false);
 
   async function removeVolume() {
     if (!confirm('are you sure you want to delete this volume? this action is irreversible.')) return;
@@ -19,6 +22,50 @@
       }
     } catch (err) {
       toasts.error('network error');
+    }
+  }
+
+  function startEditingName() {
+    editingName = volume.Name;
+    isEditingName = true;
+  }
+
+  function cancelEditingName() {
+    isEditingName = false;
+    editingName = '';
+  }
+
+  async function saveName() {
+    if (!editingName || editingName === volume.Name) {
+      cancelEditingName();
+      return;
+    }
+
+    isRenaming = true;
+    try {
+      const res = await fetch('/api/volumes/rename', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          oldName: volume.Name,
+          newName: editingName 
+        })
+      });
+      
+      if (res.ok) {
+        toasts.success('volume renamed');
+        // Redirect to the new URL
+        goto(`/volumes/${encodeURIComponent(editingName)}`);
+      } else {
+        const error = await res.json();
+        toasts.error(error.error || 'failed to rename volume');
+        cancelEditingName();
+      }
+    } catch (err) {
+      toasts.error('network error');
+      cancelEditingName();
+    } finally {
+      isRenaming = false;
     }
   }
 
@@ -40,7 +87,47 @@
         <ArrowLeft size={20} />
       </a>
       <div>
-        <h2 class="text-3xl font-bold tracking-tight preserve-case">{volume.Name}</h2>
+        {#if isEditingName}
+          <div class="flex items-center gap-2">
+            <input 
+              type="text" 
+              bind:value={editingName}
+              class="text-3xl font-bold tracking-tight preserve-case bg-transparent border-b-2 border-accent-yellow focus:outline-none"
+              onkeydown={(e) => {
+                if (e.key === 'Enter') saveName();
+                if (e.key === 'Escape') cancelEditingName();
+              }}
+              disabled={isRenaming}
+            />
+            <button 
+              onclick={saveName}
+              disabled={isRenaming || !editingName || editingName === volume.Name}
+              class="p-1 text-green-400 hover:text-green-300 transition-colors disabled:opacity-50"
+            >
+              <Check size={20} />
+            </button>
+            <button 
+              onclick={cancelEditingName}
+              disabled={isRenaming}
+              class="p-1 text-red-400 hover:text-red-300 transition-colors disabled:opacity-50"
+            >
+              <X size={20} />
+            </button>
+          </div>
+        {:else}
+          <div class="flex items-center gap-2">
+            <h2 class="text-3xl font-bold tracking-tight preserve-case cursor-pointer hover:text-accent-yellow transition-colors" onclick={startEditingName}>
+              {volume.Name}
+            </h2>
+            <button 
+              onclick={startEditingName}
+              class="p-1 text-white/40 hover:text-white/60 transition-colors"
+              title="Click to rename"
+            >
+              <Pencil size={16} />
+            </button>
+          </div>
+        {/if}
         <p class="text-white/40 font-mono text-xs mt-1">volume inspection</p>
       </div>
     </div>
@@ -74,7 +161,7 @@
           </div>
           <div>
             <p class="text-[10px] text-white/20 font-bold tracking-widest">created</p>
-            <p class="font-mono text-sm">{volume.CreatedAt ? formatDate(volume.CreatedAt) : 'n/a'}</p>
+            <p class="font-mono text-sm">{(volume as any).CreatedAt ? formatDate((volume as any).CreatedAt) : 'n/a'}</p>
           </div>
         </div>
 

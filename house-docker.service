@@ -1,12 +1,12 @@
 [Unit]
-Description=docker management dashboard
+Description=dasher management dashboard
 After=network.target docker.service
 Requires=docker.service
 
 [Service]
 Type=simple
 User=house
-WorkingDirectory=/home/house/docker
+WorkingDirectory=/home/house/dasher
 ExecStart=/usr/bin/node server.js
 Restart=always
 RestartSec=10
